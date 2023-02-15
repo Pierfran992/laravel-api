@@ -9,6 +9,12 @@
         Home
     </a>
 
+    {{-- creo un bottone per indirizzare l'utente in una pagina dove può creare un nuovo film --}}
+    <a href="{{ route('create.movie') }}" class="btn btn-danger">
+        <i class="fa-solid fa-square-plus"></i>
+        New Movie
+    </a>
+
     {{-- creo le card per stampare le info sui film --}}
     <div class="d-flex flex-wrap gap-3">
 
