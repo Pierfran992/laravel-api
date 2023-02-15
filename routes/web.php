@@ -21,3 +21,7 @@ Route::get('/', [MainCotroller::class, 'home'])
 Route::get('/movies', [MainCotroller::class, 'movies'])
     ->name('movies');
 
+// delete
+Route::get('/delete/movie/{movie}', [MainCotroller::class, 'delete'])
+    ->name('delete.movie');
+
