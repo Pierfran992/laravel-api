@@ -5,7 +5,7 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Model>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Movie>
  */
 class MovieFactory extends Factory
 {
@@ -17,7 +17,9 @@ class MovieFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'name' => fake() -> unique() -> words(2, true),
+            'release_date' => fake() -> date(),
+            'cashOut' => fake() -> randomNumber(5, false),
         ];
     }
 }
