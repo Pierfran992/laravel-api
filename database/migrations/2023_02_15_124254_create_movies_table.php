@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name', 64) -> unique();
             $table->date('release_date');
-            $table->boolean('cashOut') -> default(false);
+            $table->integer('cashOut') -> default(0);
             $table->timestamps();
         });
     }
