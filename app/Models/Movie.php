@@ -8,4 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class Movie extends Model
 {
     use HasFactory;
+
+    public function tags() {
+        return $this -> belongsToMany(Tag::class);
+    }
+
+    public function genre() {
+        return $this -> belongsTo(Genre::class);
+    }
 }
