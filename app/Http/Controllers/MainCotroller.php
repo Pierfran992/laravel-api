@@ -11,7 +11,13 @@ use App\Models\Movie;
 class MainCotroller extends Controller
 {
     // index
-    public function home() {
-        return view('pages.home');
+    public function home(){
+        $genres = Genre :: all();
+        return view('pages.home', compact('genres'));
+    }
+
+    public function movies() {
+        $movies = Movie :: all();
+        return view('pages.movies', compact('movies'));
     }
 }

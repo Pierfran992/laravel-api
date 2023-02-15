@@ -16,4 +16,8 @@ use App\Http\Controllers\MainCotroller;
 */
 
 // index
-Route::get('/', [MainCotroller::class, 'home']);
+Route::get('/', [MainCotroller::class, 'home'])
+    ->name('home');
+Route::get('/movies', [MainCotroller::class, 'movies'])
+    ->name('movies');
+
