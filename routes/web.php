@@ -25,3 +25,9 @@ Route::get('/movies', [MainCotroller::class, 'movies'])
 Route::get('/delete/movie/{movie}', [MainCotroller::class, 'delete'])
     ->name('delete.movie');
 
+// create
+Route::get('/create/movie', [MainCotroller::class, 'create'])
+    ->name('create.movie');
+    Route::post('/store/movie', [MainCotroller::class, 'store'])
+    ->name('store.movie');
+
