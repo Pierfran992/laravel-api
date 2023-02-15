@@ -31,6 +31,9 @@
                             <a href="{{route('delete.movie', $movie)}}" class="btn btn-danger">
                                 <i class="fa-solid fa-trash"></i>
                             </a>
+                            <a href="{{route('edit.movie', $movie)}}" class="btn btn-danger">
+                                <i class="fa-solid fa-pen-to-square"></i>
+                            </a>
                         </div>
                     </div>
                 </div>   
