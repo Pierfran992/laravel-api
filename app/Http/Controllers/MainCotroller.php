@@ -63,4 +63,38 @@ class MainCotroller extends Controller
         return redirect() -> route('movies');
 
     }
+
+    // edit
+    public function edit(Movie $movie) {
+        $tags = Tag :: all();
+        $genres = Genre :: all();
+
+        return view('pages.editMovie', compact('movie', 'tags', 'genres'));
+    }
+
+    public function update(Request $request, Movie $movie) {
+        
+        $data = $request -> validate([
+            'name' => 'required|string|max:64',
+            'release_date' => 'required|date|before:today',
+            'cashOut' => 'required|integer',
+            'genre_id' => 'required|integer',
+            'tags' => 'required|array'
+        ]);
+
+        $movie -> name = $data ['name'];
+        $movie -> release_date = $data ['release_date'];
+        $movie -> cashOut = $data ['cashOut'];
+        
+        $genre = Genre :: find($data['genre_id']);
+        $movie -> genre() -> associate($genre);
+
+        $movie -> save();
+
+        $tags = tag :: find($data['tags']);
+        $movie -> tags() -> attach($tags);
+
+        return redirect() -> route('movies');
+
+    }
 }

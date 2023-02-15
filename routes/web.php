@@ -31,3 +31,8 @@ Route::get('/create/movie', [MainCotroller::class, 'create'])
     Route::post('/store/movie', [MainCotroller::class, 'store'])
     ->name('store.movie');
 
+// edit
+Route::get('/edit/movie/{movie}', [MainCotroller::class, 'edit'])
+    ->name('edit.movie');
+Route::post('/update/movie/{movie}', [MainCotroller::class, 'update'])
+    ->name('update.movie');
