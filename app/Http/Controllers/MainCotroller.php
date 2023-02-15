@@ -42,9 +42,11 @@ class MainCotroller extends Controller
             'name' => 'required|string|max:64',
             'release_date' => 'required|date|before:today',
             'cashOut' => 'required|integer',
+            'genre_id' => 'required|integer',
+            'tags' => 'required|array'
         ]);
 
-        $movie = new Movie();
+        $movie = New Movie();
 
         $movie -> name = $data ['name'];
         $movie -> release_date = $data ['release_date'];
