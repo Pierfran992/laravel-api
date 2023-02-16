@@ -3,14 +3,20 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\Movie;
 use Illuminate\Http\Request;
 
 
 class ApiController extends Controller
 {
-    public function test(){
+    public function movieAll(){
+
+        $movies = Movie :: all();
+
         return response() -> json([
-            'data' => 'test',
+            'success' => true,
+            'response' => $movies,
+
         ]);
 
     }

@@ -40,4 +40,4 @@ Route::post('/update/movie/{movie}', [MainCotroller::class, 'update'])
 
 
 // route api
-Route::get('/api/v1/test', [ApiController::class, 'test']);
+Route::get('/api/v1/movie/all', [ApiController::class, 'movieAll']);
