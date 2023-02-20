@@ -26,4 +26,6 @@ Route::get('/v1/movie/all', [ApiController::class, 'movieWtagWgenreAll']);
 
 Route::delete('/v1/movie/delete/{movie}', [ApiController::class, 'deleteMovie']);
 
+Route::post('/v1/movie/store', [ApiController::class, 'createMovie']); 
+
 

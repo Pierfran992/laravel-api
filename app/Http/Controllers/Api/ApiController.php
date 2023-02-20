@@ -42,5 +42,37 @@ class ApiController extends Controller
             'success' => true,
         ]);
     }
+
+    // funzione per creare un nuovo elemento
+    public function createMovie(Request $request) {
+
+        $data = $request -> validate([
+            'name' => 'required|string|min:3|max:64',
+            'release_date' => 'required|date|before:today',
+            'cashOut' => 'required|integer|min:0|',
+            'genre_id' => 'required|integer|min:1',
+            'tags' => 'required|array'
+        ]);
+
+        $movie = New Movie();
+
+        $movie -> name = $data ['name'];
+        $movie -> release_date = $data ['release_date'];
+        $movie -> cashOut = $data ['cashOut'];
+        
+        $genre = Genre :: find($data['genre_id']);
+        $movie -> genre() -> associate($genre);
+
+        $movie -> save();
+
+        $tags = tag :: find($data['tags']);
+        $movie -> tags() -> attach($tags);
+
+        return response() -> json([
+            'success' => true,
+            'response' => $movie,
+            'data' => $request -> all(),
+        ]);
+    }
     
 }
