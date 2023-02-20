@@ -37,6 +37,19 @@ export default {
                     }
                 })
                 .catch(err => console.log);
+        },
+
+        deleteMovie(movie) {
+            axios.delete(api_url + 'movie/delete/' + movie.id)
+                .then(res => {
+
+                    const data = res.data;
+                    const success = data.success;
+
+                    if (success) {
+                        this.printMovie();
+                    }
+                }).catch(err => console.log);
         }
 
     },
@@ -60,6 +73,7 @@ export default {
                     {{ tag.name }}
                 </li>
             </ul>
+            <button @click="deleteMovie(movie)">Delete</button>
             <hr>
         </li>
     </ul>
