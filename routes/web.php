@@ -3,7 +3,6 @@
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\MainCotroller;
-use App\Http\Controllers\Api\ApiController;
 
 /*
 |--------------------------------------------------------------------------
@@ -38,6 +37,3 @@ Route::get('/edit/movie/{movie}', [MainCotroller::class, 'edit'])
 Route::post('/update/movie/{movie}', [MainCotroller::class, 'update'])
     ->name('update.movie');
 
-
-// route api
-Route::get('/api/v1/movie/all', [ApiController::class, 'movieAll']);
