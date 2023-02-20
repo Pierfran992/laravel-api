@@ -51,7 +51,7 @@ class ApiController extends Controller
             'release_date' => 'required|date|before:today',
             'cashOut' => 'required|integer|min:0|',
             'genre_id' => 'required|integer|min:1',
-            'tags' => 'required|array'
+            'tags_id' => 'required|array'
         ]);
 
         $movie = New Movie();
@@ -65,7 +65,7 @@ class ApiController extends Controller
 
         $movie -> save();
 
-        $tags = tag :: find($data['tags']);
+        $tags = tag :: find($data['tags_id']);
         $movie -> tags() -> attach($tags);
 
         return response() -> json([
