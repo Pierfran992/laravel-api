@@ -62,8 +62,13 @@ export default {
             e.preventDefault();
 
             const new_movie = this.new_movie;
+            const actualApi = api_url + (
+                'id' in new_movie
+                    ? 'movie/update/' + this.new_movie.id
+                    : 'movie/store'
+            );
 
-            axios.post(api_url + 'movie/store', new_movie)
+            axios.post(actualApi, new_movie)
                 .then(res => {
                     const data = res.data;
                     const success = data.success;
@@ -73,7 +78,18 @@ export default {
                         this.new_movie = { ...empty_new_movie };
                     }
                 }).catch(err => console.log);
-        }
+        },
+
+        editMovie(movie) {
+
+            this.new_movie = { ...movie };
+            this.new_movie.tags_id = [];
+
+            for (let i = 0; i < movie.tags.length; i++) {
+                const tag = movie.tags[i];
+                this.new_movie.tags_id.push(tag.id);
+            }
+        },
 
     },
 
@@ -87,7 +103,8 @@ export default {
     <h1>My Movie List</h1>
 
     <div>
-        <h2>Create a new movie</h2>
+        <h2 v-if="'id' in new_movie">Edit Movie</h2>
+        <h2 v-else>Create a new Movie</h2>
 
         <form>
             <label for="name">Name</label>
@@ -109,7 +126,8 @@ export default {
                 <input type="checkbox" :id="'tag-' + tag.id" :value="tag.id" v-model="new_movie.tags_id">
                 <label :for="'tag-' + tag.id">{{ tag.name }}</label>
             </div>
-            <input type="submit" value="Create New Movie" @click="createMovie">
+            <input type="submit" :value="'id' in new_movie ? 'UPDATE MOVIE: ' + new_movie.id : 'CREATE NEW MOVIE'"
+                @click="createMovie">
         </form>
     </div>
 
@@ -125,6 +143,7 @@ export default {
                     {{ tag.name }}
                 </li>
             </ul>
+            <button @click="editMovie(movie)">Edit</button>
             <button @click="deleteMovie(movie)">Delete</button>
             <hr>
         </li>
