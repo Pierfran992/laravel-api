@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Movie;
 use App\Models\Genre;
 use App\Models\Tag;
+use GrahamCampbell\ResultType\Success;
 use Illuminate\Http\Request;
 
 
@@ -31,5 +32,15 @@ class ApiController extends Controller
         ]);
     }
 
+
+    // funzione per eliminare un elemento
+    public function deleteMovie(Movie $movie) {
+        $movie -> tags() -> sync([]);
+        $movie -> delete();
+
+        return response() -> json([
+            'success' => true,
+        ]);
+    }
     
 }
