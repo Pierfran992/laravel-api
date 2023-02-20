@@ -3,6 +3,10 @@ import axios from 'axios';
 
 const api_url = 'http://127.0.0.1:8000/api/v1/';
 
+const empty_new_movie = {
+    tags_id: []
+}
+
 export default {
     name: 'App',
 
@@ -11,6 +15,8 @@ export default {
             movies: [],
             tags: [],
             genres: [],
+
+            new_movie: { ...empty_new_movie },
         }
     },
 
@@ -50,6 +56,23 @@ export default {
                         this.printMovie();
                     }
                 }).catch(err => console.log);
+        },
+
+        createMovie(e) {
+            e.preventDefault();
+
+            const new_movie = this.new_movie;
+
+            axios.post(api_url + 'movie/store', new_movie)
+                .then(res => {
+                    const data = res.data;
+                    const success = data.success;
+
+                    if (success) {
+                        this.printMovie();
+                        this.new_movie = { ...empty_new_movie };
+                    }
+                }).catch(err => console.log);
         }
 
     },
@@ -62,6 +85,35 @@ export default {
 
 <template>
     <h1>My Movie List</h1>
+
+    <div>
+        <h2>Create a new movie</h2>
+
+        <form>
+            <label for="name">Name</label>
+            <input type="text" name="name" v-model="new_movie.name">
+            <br>
+            <label for="release_date">Release Date</label>
+            <input type="date" name="release_date" v-model="new_movie.release_date">
+            <br>
+            <label for="cashOut">Cash Out</label>
+            <input type="number" name="cashOut" v-model="new_movie.cashOut">
+            <br>
+            <label for="genre">Genre</label>
+            <select name="genre_id" v-model="new_movie.genre_id">
+                <option v-for="genre in genres" :key="genre.id" :value="genre.id">{{ genre.name }}</option>
+            </select>
+            <br>
+            <label>Tags:</label>
+            <div v-for="tag in tags" :key="tag.id">
+                <input type="checkbox" :id="'tag-' + tag.id" :value="tag.id" v-model="new_movie.tags_id">
+                <label :for="'tag-' + tag.id">{{ tag.name }}</label>
+            </div>
+            <input type="submit" value="Create New Movie" @click="createMovie">
+        </form>
+    </div>
+
+    <hr>
 
     <ul>
         <!-- film -->
