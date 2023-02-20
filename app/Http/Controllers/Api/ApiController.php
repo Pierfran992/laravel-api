@@ -74,5 +74,34 @@ class ApiController extends Controller
             'data' => $request -> all(),
         ]);
     }
+
+    // funzione per modificare un elemento
+    public function editMovie(Request $request, Movie $movie) {
+        $data = $request -> validate([
+            'name' => 'required|string|min:3|max:64',
+            'release_date' => 'required|date|before:today',
+            'cashOut' => 'required|integer|min:0|',
+            'genre_id' => 'required|integer|min:1',
+            'tags_id' => 'required|array'
+        ]);
+
+        $movie -> name = $data ['name'];
+        $movie -> release_date = $data ['release_date'];
+        $movie -> cashOut = $data ['cashOut'];
+        
+        $genre = Genre :: find($data['genre_id']);
+        $movie -> genre() -> associate($genre);
+
+        $movie -> save();
+
+        $tags = tag :: find($data['tags_id']);
+        $movie -> tags() -> sync($tags);
+
+        return response() -> json([
+            'success' => true,
+            'response' => $movie,
+            'data' => $request -> all(),
+        ]);
+    }
     
 }
